@@ -1,7 +1,6 @@
 package se.lnu.eres.evidence.core;
 
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 public class Mass {
