@@ -1,7 +1,11 @@
 package se.lnu.eres.evidence.core.combinations;
 
+
 import java.util.HashSet;
 import java.util.Set;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import se.lnu.eres.evidence.core.Discourse;
 import se.lnu.eres.evidence.core.Mass;
@@ -10,7 +14,7 @@ import se.lnu.eres.evidence.exceptions.NullDiscourseException;
 
 public class YagerCombination {
 
-	// Logger logger = LoggerFactory.getLogger(YagerCombination.class);;
+	private static final Logger Logger = LogManager.getLogger(YagerCombination.class.getSimpleName());
 
 	public Discourse combine(Discourse[] ds) throws NullDiscourseException, NotElementInDiscourseException {
 		for (Discourse d : ds) {
@@ -20,7 +24,7 @@ public class YagerCombination {
 		}
 		Discourse result = Discourse.createDiscourse(ds[0].getOmegaSet());
 
-		result= combineYagerRecursive(0, result, ds, new HashSet<String>(result.getOmegaSet()), 1.0);
+		result = combineYagerRecursive(0, result, ds, new HashSet<String>(result.getOmegaSet()), 1.0);
 		addEmptySetMassesToOmega(result);
 		return result;
 	}
@@ -32,17 +36,15 @@ public class YagerCombination {
 		// in position pos and call recursively for each of its masses.
 		if (pos == ds.length) {
 			result.incrementOrAddAsNew(elementsIn, partialMassValue);
-			System.out.println("Adding to the result set elements=" + elementsIn.toString() + " , a value partialMAssValue="
-					+ partialMassValue);
+			System.out.println("Adding to the result set elements=" + elementsIn.toString()
+					+ " , a value partialMAssValue=" + partialMassValue);
 
 		} else {
 
 			for (Mass m : ds[pos].getMasses()) {
 				Set<String> elements = new HashSet<String>(elementsIn);
 				elements.retainAll(m.getElements());
-				/** TODO: Add logger here **/
-				System.out.println("pos=" + pos + " , elements=" + elements.toString() + " , partialMAssValue="
-						+ partialMassValue);
+				Logger.debug("pos={} , elements={} , partialMassValue={}", pos, elements.toString(), partialMassValue);
 				combineYagerRecursive(pos + 1, result, ds, elements, partialMassValue * m.getValue());
 			}
 		}
@@ -77,7 +79,7 @@ public class YagerCombination {
 		// It must get its value incremented by the mass of the empty set, and remove
 		// the
 		// empty set from the list of masses
-		
+
 		addEmptySetMassesToOmega(result);
 
 		return result;
@@ -90,7 +92,6 @@ public class YagerCombination {
 			result.removeMass(emptySet);
 		}
 
-		
 	}
 
 }

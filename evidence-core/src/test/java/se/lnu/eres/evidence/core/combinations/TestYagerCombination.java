@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,12 +17,17 @@ import se.lnu.eres.evidence.exceptions.NullDiscourseException;
 
 class TestYagerCombination {
 
+	private static final Logger Logger = LogManager.getLogger(TestYagerCombination.class.getSimpleName());
+	
 	Discourse d1, d2, d3;
 	static Set<String> allElements;
 
+
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
+		//System.setProperty("java.util.logging.config.file", ClassLoader.getSystemResource("testingLogging.properties.log4j2.xml").getPath());
 		allElements = new HashSet<String>(Arrays.asList("p", "b", "c", "t"));
+		//System.setProperty("log4j.configurationFile", ClassLoader.getSystemResource("testingLogging.properties.log4j2.xml").getPath());
 	}
 
 	@BeforeEach
@@ -48,7 +55,7 @@ class TestYagerCombination {
 
 		YagerCombination c = new YagerCombination();
 		Discourse dr = c.combine(d1, d2);
-		System.out.println("Test yagger with two inputs " + dr.toString());
+		Logger.info("Test yagger with two inputs {}", dr.toString());
 
 	}
 
@@ -78,7 +85,7 @@ class TestYagerCombination {
 		ds[1] = d2;
 		ds[2] = d3;
 		Discourse dr = c.combine(ds);
-		System.out.println("Test yagger recursive with three inputs " + dr.toString());
+		Logger.info("Test yagger recursive with three inputs {} ", dr.toString());
 
 	}
 
