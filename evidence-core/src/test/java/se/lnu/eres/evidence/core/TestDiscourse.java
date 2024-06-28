@@ -11,9 +11,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import se.lnu.eres.evidence.exceptions.NotElementInDiscourseException;
+import se.lnu.eres.evidence.util.MathEvidence;
 
 class TestDiscourse {
 
+	
 	Discourse d;
 	static Set<String> allElements;
 	
@@ -49,10 +51,10 @@ class TestDiscourse {
 		d.addMass(allElements, 0.1);
 		Assertions.assertTrue(d.isCorrectMasses());
 		
-		Assertions.assertEquals(0.8, round(5, d.getBelief(pb)));
-		Assertions.assertEquals(0.5, round(5,d.getBelief("p")));
-		Assertions.assertEquals(0.2, round(5,d.getBelief("b")));
-		Assertions.assertEquals(1.0, round(5,d.getBelief(allElements)));
+		Assertions.assertEquals(0.8, MathEvidence.Round(5, d.getBelief(pb)));
+		Assertions.assertEquals(0.5, MathEvidence.Round(5,d.getBelief("p")));
+		Assertions.assertEquals(0.2, MathEvidence.Round(5,d.getBelief("b")));
+		Assertions.assertEquals(1.0, MathEvidence.Round(5,d.getBelief(allElements)));
 		
 	}
 	
@@ -66,16 +68,14 @@ class TestDiscourse {
 		d.addMass(allElements, 0.1);
 		Assertions.assertTrue(d.isCorrectMasses());
 		
-		Assertions.assertEquals(0.9, round(5, d.getPlausibility(pb)));
-		Assertions.assertEquals(0.7, round(5,d.getPlausibility("p")));
-		Assertions.assertEquals(0.4, round(5,d.getPlausibility("b")));
-		Assertions.assertEquals(0.2, round(5,d.getPlausibility("c")));
-		Assertions.assertEquals(1.0, round(5,d.getPlausibility(allElements)));
+		Assertions.assertEquals(0.9, MathEvidence.Round(5, d.getPlausibility(pb)));
+		Assertions.assertEquals(0.7, MathEvidence.Round(5,d.getPlausibility("p")));
+		Assertions.assertEquals(0.4, MathEvidence.Round(5,d.getPlausibility("b")));
+		Assertions.assertEquals(0.2, MathEvidence.Round(5,d.getPlausibility("c")));
+		Assertions.assertEquals(1.0, MathEvidence.Round(5,d.getPlausibility(allElements)));
 		
 	}
 
-	private Double round(int position, double value) {
-		return Math.round(value*Math.pow(10, position))/Math.pow(10, position);
-	}
+
 
 }

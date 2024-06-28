@@ -87,8 +87,8 @@ public class YagerCombination {
 
 	private void addEmptySetMassesToOmega(Discourse result) throws NotElementInDiscourseException {
 		Set<String> emptySet = new HashSet<String>();
-		if (result.getMass(emptySet).getValue() > 0.0) {
-			result.incrementOrAddAsNew(result.getOmegaSet(), result.getMass(emptySet).getValue());
+		if (result.getMassValue(emptySet) > 0.0) {
+			result.incrementOrAddAsNew(result.getOmegaSet(), result.getMassValue(emptySet));
 			result.removeMass(emptySet);
 		}
 

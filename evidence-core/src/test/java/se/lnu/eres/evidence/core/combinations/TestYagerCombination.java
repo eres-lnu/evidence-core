@@ -14,20 +14,27 @@ import org.junit.jupiter.api.Test;
 import se.lnu.eres.evidence.core.Discourse;
 import se.lnu.eres.evidence.exceptions.NotElementInDiscourseException;
 import se.lnu.eres.evidence.exceptions.NullDiscourseException;
+import se.lnu.eres.evidence.util.MathEvidence;
 
 class TestYagerCombination {
 
 	private static final Logger Logger = LogManager.getLogger(TestYagerCombination.class.getSimpleName());
-	
+	private double[] massResultsPaper = { 0.364, 0.144, 0.0, 0.0, 0.36, 0.132 };
+	private String[][] setMassResultsPaper = { { "p" }, { "b" }, { "c" }, { "t" }, { "p", "b", "c", "t" },
+			{ "p", "b" } };
+	private double[] plausibResultsPaper = { 0.856, 0.636, 0.36, 0.36, 1.0 };
+	private String[][] setPlausibResultsPaper = { { "p" }, { "b" }, { "c" }, { "t" }, { "p", "b", "c", "t" } };
+
 	Discourse d1, d2, d3;
 	static Set<String> allElements;
 
-
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-		//System.setProperty("java.util.logging.config.file", ClassLoader.getSystemResource("testingLogging.properties.log4j2.xml").getPath());
+		// System.setProperty("java.util.logging.config.file",
+		// ClassLoader.getSystemResource("testingLogging.properties.log4j2.xml").getPath());
 		allElements = new HashSet<String>(Arrays.asList("p", "b", "c", "t"));
-		//System.setProperty("log4j.configurationFile", ClassLoader.getSystemResource("testingLogging.properties.log4j2.xml").getPath());
+		// System.setProperty("log4j.configurationFile",
+		// ClassLoader.getSystemResource("testingLogging.properties.log4j2.xml").getPath());
 	}
 
 	@BeforeEach
@@ -61,22 +68,20 @@ class TestYagerCombination {
 
 	@Test
 	void testYagerCombineRecursive() throws NotElementInDiscourseException, NullDiscourseException {
-		d1.addMass("p", 0.6);
-		d1.addMass("b", 0.3);
+		d1.addMass("p", 0.7);
 		Assertions.assertFalse(d1.isCorrectMasses());
-		d1.addMass(allElements, 0.1);
+		d1.addMass(allElements, 0.3);
 		Assertions.assertTrue(d1.isCorrectMasses());
 
-		d2.addMass("p", 0.3);
-		d2.addMass("b", 0.4);
+		Set<String> pb = new HashSet<String>(Arrays.asList("p", "b"));
+		d2.addMass("b", 0.48);
+		d2.addMass(pb, 0.12);
 		Assertions.assertFalse(d2.isCorrectMasses());
-		d2.addMass("c", 0.1);
-		d2.addMass(allElements, 0.2);
+		d2.addMass(allElements, 0.4);
 		Assertions.assertTrue(d2.isCorrectMasses());
 
-		Set<String> pb = new HashSet<String>(Arrays.asList("p", "b"));
-		d3.addMass(pb, 0.6);
-		d3.addMass(allElements, 0.4);
+		d3.addMass(pb, 0.8);
+		d3.addMass(allElements, 0.2);
 		Assertions.assertTrue(d3.isCorrectMasses());
 
 		YagerCombination c = new YagerCombination();
@@ -85,12 +90,22 @@ class TestYagerCombination {
 		ds[1] = d2;
 		ds[2] = d3;
 		Discourse dr = c.combine(ds);
+
+		// Assert mass results compared with calculations for paper
+		for (int i = 0; i < massResultsPaper.length; i++) {
+			Assertions.assertEquals(massResultsPaper[i],
+					MathEvidence.Round(5, dr.getMassValue(new HashSet<String>(Arrays.asList(setMassResultsPaper[i])))));
+		}
+		
+		// Assert Plausibility results compared with calculations for paper
+		for (int i = 0; i < plausibResultsPaper.length; i++) {
+			Assertions.assertEquals(plausibResultsPaper[i],
+					MathEvidence.Round(5, dr.getPlausibility(new HashSet<String>(Arrays.asList(setPlausibResultsPaper[i])))));
+		}
+		
+
 		Logger.info("Test yagger recursive with three inputs {} ", dr.toString());
 
-	}
-
-	private Double round(int position, double value) {
-		return Math.round(value * Math.pow(10, position)) / Math.pow(10, position);
 	}
 
 }

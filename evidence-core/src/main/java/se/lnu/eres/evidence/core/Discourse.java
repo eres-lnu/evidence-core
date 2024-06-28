@@ -5,10 +5,17 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import se.lnu.eres.evidence.exceptions.NotElementInDiscourseException;
 
 public class Discourse {
 
+	private static final Logger Logger = LogManager.getLogger(Discourse.class.getSimpleName());
+	private static int Id = 1;
+
+	private String name;
 	private Set<String> disc = null;
 
 	private List<Mass> masses;
@@ -19,14 +26,19 @@ public class Discourse {
 
 	}
 
-	private Discourse(Set<String> d) {
+	private Discourse(Set<String> d, String name) {
 		disc = d;
 		masses = new ArrayList<Mass>();
+		this.name = name;
+		Id++;
+	}
+
+	private Discourse(Set<String> d) {
+		this(d, "Default" + Id);
 	}
 
 	private Discourse() {
-		disc = new HashSet<String>();
-		masses = new ArrayList<Mass>();
+		this(new HashSet<String>());
 	}
 
 	public static Discourse createDiscourse(Set<String> d) {
@@ -55,7 +67,8 @@ public class Discourse {
 		// Check if elemens are in the discourse
 		for (String e : elements) {
 			if (!disc.contains(e)) {
-				throw new NotElementInDiscourseException("Element " + e + " does not belong to the discourse. Discouse containts {"+disc+"}");
+				throw new NotElementInDiscourseException(
+						"Element " + e + " does not belong to the discourse. Discouse containts {" + disc + "}");
 			}
 		}
 
@@ -159,13 +172,24 @@ public class Discourse {
 		return getPlausibility(Mass.elementToSet(element));
 	}
 
-	public Mass getMass(Set<String> elements) {
+	private Mass getMass(Set<String> elements) {
 		for (Mass m : masses) {
 			if (m.equalElements(elements)) {
 				return m;
 			}
 		}
+
+		Logger.warn("getMass on Discourse {} is going to return null for asked set {}", name, elements.toString());
 		return null;
+	}
+
+	public double getMassValue(Set<String> elements) {
+		Mass m = getMass(elements);
+		if (m == null) {
+			return 0.0;
+		} else {
+			return m.getValue();
+		}
 	}
 
 	public void removeMass(Set<String> emptySet) {
@@ -186,10 +210,10 @@ public class Discourse {
 	}
 
 	private static final String NL = System.getProperty("line.separator");
+
 	@Override
 	public String toString() {
 		return "Discourse [disc=" + disc + ", masses=" + NL + masses + "]";
 	}
-	
 
 }
