@@ -1,7 +1,6 @@
 package se.lnu.eres.evidence.use.sensorfusion;
 
 import java.util.Properties;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -19,7 +18,7 @@ public class Constants {
 
 	public Constants(String filename) throws FileNotFoundException, IOException {
 		Properties p = new Properties();
-		p.load(new FileInputStream(filename));
+		p.load(getClass().getClassLoader().getResourceAsStream(filename));
 		this.alphap=Double.valueOf(p.getProperty("alphap"));
 		this.gammab=Double.valueOf(p.getProperty("gammab"));
 		this.alphab=Double.valueOf(p.getProperty("alphab"));

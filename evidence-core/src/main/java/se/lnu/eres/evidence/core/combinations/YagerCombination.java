@@ -17,12 +17,21 @@ public class YagerCombination {
 	private static final Logger Logger = LogManager.getLogger(YagerCombination.class.getSimpleName());
 
 	public Discourse combine(Discourse[] ds) throws NullDiscourseException, NotElementInDiscourseException {
+		
+		String nameResultDiscourse="";
 		for (Discourse d : ds) {
 			if (d == null) {
-				throw new NullDiscourseException();
+				throw new NullDiscourseException("The array of discourse contains some null element");
 			}
+			//taking advantage of this iteration to build the name of the combined discourse
+			nameResultDiscourse+=d.getName()+"|";
 		}
-		Discourse result = Discourse.createDiscourse(ds[0].getOmegaSet());
+		//remove the last "|" in the name 
+		nameResultDiscourse=nameResultDiscourse.substring(0, nameResultDiscourse.length()-1);
+		
+
+		
+		Discourse result = Discourse.createDiscourse(ds[0].getOmegaSet(), nameResultDiscourse);
 
 		result = combineYagerRecursive(0, result, ds, new HashSet<String>(result.getOmegaSet()), 1.0);
 		addEmptySetMassesToOmega(result);
@@ -57,7 +66,7 @@ public class YagerCombination {
 		if (d1 == null || d2 == null) {
 			throw new NullDiscourseException();
 		}
-		Discourse result = Discourse.createDiscourse(d1.getOmegaSet());
+		Discourse result = Discourse.createDiscourse(d1.getOmegaSet(), d1.getName()+"|"+d2.getName());
 
 		// Calculate the intersections of all sets in the two discourses. The mass of a
 		// resulting element is the sum of all intersections that resulted in that

@@ -3,6 +3,8 @@ package se.lnu.eres.evidence.core;
 import java.util.HashSet;
 import java.util.Set;
 
+import se.lnu.eres.evidence.util.MathEvidence;
+
 public class Mass {
 
 	private Set<String> elements;
@@ -16,14 +18,11 @@ public class Mass {
 	}
 	
 	public Mass(String element, double value) {
-		this(elementToSet(element), value);
+		this(MathEvidence.elementToSet(element), value);
 	}
+	
+	public static final Mass DUMMY_MASS = new Mass(new HashSet<String>(),0.0);
 
-	protected static Set<String> elementToSet(String element) {
-		Set<String> s = (new HashSet<String>());
-		s.add(element);
-		return s;
-	}
 
 	public Set<String> getElements() {
 		return elements;

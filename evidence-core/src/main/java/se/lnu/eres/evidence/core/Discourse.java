@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import se.lnu.eres.evidence.exceptions.NotElementInDiscourseException;
+import se.lnu.eres.evidence.util.MathEvidence;
 
 public class Discourse {
 
@@ -16,7 +17,13 @@ public class Discourse {
 	private static int Id = 1;
 
 	private String name;
+
+	public String getName() {
+		return name;
+	}
+
 	private Set<String> disc = null;
+
 
 	private List<Mass> masses;
 
@@ -43,6 +50,10 @@ public class Discourse {
 
 	public static Discourse createDiscourse(Set<String> d) {
 		return new Discourse(d);
+	}
+
+	public static Discourse createDiscourse(Set<String> d, String name) {
+		return new Discourse(d, name);
 	}
 
 	public static Discourse createDiscourse() {
@@ -119,7 +130,7 @@ public class Discourse {
 	 * @throws NotElementInDiscourseException
 	 */
 	public boolean addMass(String element, double value) throws NotElementInDiscourseException {
-		return addMass(Mass.elementToSet(element), value);
+		return addMass(MathEvidence.elementToSet(element), value);
 	}
 
 	public boolean isCorrectMasses() {
@@ -148,7 +159,7 @@ public class Discourse {
 	}
 
 	public double getBelief(String element) {
-		return getBelief(Mass.elementToSet(element));
+		return getBelief(MathEvidence.elementToSet(element));
 	}
 
 	public double getPlausibility(Set<String> element) {
@@ -169,7 +180,7 @@ public class Discourse {
 	}
 
 	public double getPlausibility(String element) {
-		return getPlausibility(Mass.elementToSet(element));
+		return getPlausibility(MathEvidence.elementToSet(element));
 	}
 
 	private Mass getMass(Set<String> elements) {
@@ -190,6 +201,10 @@ public class Discourse {
 		} else {
 			return m.getValue();
 		}
+	}
+
+	public double getMassValue(String element) {
+		return getMassValue(MathEvidence.elementToSet(element));
 	}
 
 	public void removeMass(Set<String> emptySet) {
