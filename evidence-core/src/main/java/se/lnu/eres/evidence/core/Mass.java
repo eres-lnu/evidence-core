@@ -66,6 +66,23 @@ public class Mass {
 		return true;
 	}
 	
+	public boolean equalElements(Set<String> s1) {
+		return equalElements(elements, s1);
+	}
+
+	public Set<String> intersect(Mass m2) {
+		Set<String> result = new HashSet<String>(elements);
+		result.retainAll(m2.getElements());
+		return result;
+	}
+
+	private static final String NL = System.getProperty("line.separator");
+	@Override
+	public String toString() {
+		return "Mass [elements=" + elements + NL + ", value=" + value + "]" + NL + NL;
+	}
+
+	
 
 	
 	

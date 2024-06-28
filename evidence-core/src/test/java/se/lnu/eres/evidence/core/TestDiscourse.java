@@ -15,10 +15,10 @@ import se.lnu.eres.evidence.exceptions.NotElementInDiscourseException;
 class TestDiscourse {
 
 	Discourse d;
-	Set<String> allElements;
+	static Set<String> allElements;
 	
 	@BeforeAll
-	void setUpBeforeClass() throws Exception {
+	static void setUpBeforeClass() throws Exception {
 		allElements=new HashSet<String>(Arrays.asList("p","b","c","t"));		
 	}
 
@@ -33,9 +33,9 @@ class TestDiscourse {
 	void testAddMass() throws NotElementInDiscourseException {
 		d.addMass("p", 0.6);
 		d.addMass("b", 0.3);
-		Assertions.assertFalse(d.areCorrectMasses());
+		Assertions.assertFalse(d.isCorrectMasses());
 		d.addMass(allElements, 0.1);
-		Assertions.assertTrue(d.areCorrectMasses());
+		Assertions.assertTrue(d.isCorrectMasses());
 		
 	}
 	
@@ -47,7 +47,7 @@ class TestDiscourse {
 		d.addMass("c", 0.1);
 		d.addMass(pb, 0.1);
 		d.addMass(allElements, 0.1);
-		Assertions.assertTrue(d.areCorrectMasses());
+		Assertions.assertTrue(d.isCorrectMasses());
 		
 		Assertions.assertEquals(0.8, round(5, d.getBelief(pb)));
 		Assertions.assertEquals(0.5, round(5,d.getBelief("p")));
@@ -64,7 +64,7 @@ class TestDiscourse {
 		d.addMass("c", 0.1);
 		d.addMass(pb, 0.1);
 		d.addMass(allElements, 0.1);
-		Assertions.assertTrue(d.areCorrectMasses());
+		Assertions.assertTrue(d.isCorrectMasses());
 		
 		Assertions.assertEquals(0.9, round(5, d.getPlausibility(pb)));
 		Assertions.assertEquals(0.7, round(5,d.getPlausibility("p")));

@@ -1,0 +1,96 @@
+package se.lnu.eres.evidence.core.combinations;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import se.lnu.eres.evidence.core.Discourse;
+import se.lnu.eres.evidence.core.Mass;
+import se.lnu.eres.evidence.exceptions.NotElementInDiscourseException;
+import se.lnu.eres.evidence.exceptions.NullDiscourseException;
+
+public class YagerCombination {
+
+	// Logger logger = LoggerFactory.getLogger(YagerCombination.class);;
+
+	public Discourse combine(Discourse[] ds) throws NullDiscourseException, NotElementInDiscourseException {
+		for (Discourse d : ds) {
+			if (d == null) {
+				throw new NullDiscourseException();
+			}
+		}
+		Discourse result = Discourse.createDiscourse(ds[0].getOmegaSet());
+
+		result= combineYagerRecursive(0, result, ds, new HashSet<String>(result.getOmegaSet()), 1.0);
+		addEmptySetMassesToOmega(result);
+		return result;
+	}
+
+	private Discourse combineYagerRecursive(int pos, Discourse result, Discourse[] ds, Set<String> elementsIn,
+			double partialMassValue) throws NotElementInDiscourseException {
+		// If pos is over the ds elelents (ds.lenght), update the masses in result
+		// If pos is not the last discourse, Calculate intersection with the discourse
+		// in position pos and call recursively for each of its masses.
+		if (pos == ds.length) {
+			result.incrementOrAddAsNew(elementsIn, partialMassValue);
+			System.out.println("Adding to the result set elements=" + elementsIn.toString() + " , a value partialMAssValue="
+					+ partialMassValue);
+
+		} else {
+
+			for (Mass m : ds[pos].getMasses()) {
+				Set<String> elements = new HashSet<String>(elementsIn);
+				elements.retainAll(m.getElements());
+				/** TODO: Add logger here **/
+				System.out.println("pos=" + pos + " , elements=" + elements.toString() + " , partialMAssValue="
+						+ partialMassValue);
+				combineYagerRecursive(pos + 1, result, ds, elements, partialMassValue * m.getValue());
+			}
+		}
+
+		return result;
+
+	}
+
+	public Discourse combine(Discourse d1, Discourse d2) throws NullDiscourseException, NotElementInDiscourseException {
+		if (d1 == null || d2 == null) {
+			throw new NullDiscourseException();
+		}
+		Discourse result = Discourse.createDiscourse(d1.getOmegaSet());
+
+		// Calculate the intersections of all sets in the two discourses. The mass of a
+		// resulting element is the sum of all intersections that resulted in that
+		// element. For each of the resulting intersection, the value to add is the
+		// product of the masses of the intersected sets
+
+		for (Mass m1 : d1.getMasses()) {
+			for (Mass m2 : d2.getMasses()) {
+
+				Set<String> intersection = m1.intersect(m2);
+				double intersectionValue = m1.getValue() * m2.getValue();
+
+				result.incrementOrAddAsNew(intersection, intersectionValue);
+
+			}
+		}
+
+		// Fix the mass of omega. At this point it may exist or it may not.
+		// It must get its value incremented by the mass of the empty set, and remove
+		// the
+		// empty set from the list of masses
+		
+		addEmptySetMassesToOmega(result);
+
+		return result;
+	}
+
+	private void addEmptySetMassesToOmega(Discourse result) throws NotElementInDiscourseException {
+		Set<String> emptySet = new HashSet<String>();
+		if (result.getMass(emptySet).getValue() > 0.0) {
+			result.incrementOrAddAsNew(result.getOmegaSet(), result.getMass(emptySet).getValue());
+			result.removeMass(emptySet);
+		}
+
+		
+	}
+
+}
