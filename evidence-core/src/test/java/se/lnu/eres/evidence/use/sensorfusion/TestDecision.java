@@ -34,10 +34,10 @@ class TestDecision {
 		Assertions.assertNotNull(pedestrianDecisions);
 		Assertions.assertEquals(8, pedestrianDecisions.size());
 		
-		Interval<Double,Double> beliefInterval = d.createIntervalBelief(pedestrianDecisions, "p");
+		Pair<Double,Double> beliefInterval = d.createIntervalBelief(pedestrianDecisions, "p");
 		
 		String[] alternatives = new String[] {"b","c","t"};
-		List<Interval<Double,Double>> plausibilityIntervals = d.createIntervalPlausibility(pedestrianDecisions, alternatives);
+		List<Pair<Double,Double>> plausibilityIntervals = d.createIntervalPlausibility(pedestrianDecisions, alternatives);
 		
 		System.out.println("Interval of beliefs is: " + beliefInterval);
 		for(int i=0; i<alternatives.length; i++) {

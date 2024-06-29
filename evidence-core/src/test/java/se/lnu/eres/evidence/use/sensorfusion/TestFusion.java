@@ -27,7 +27,7 @@ class TestFusion {
 	@Test
 	void testCreateProblem() throws FileNotFoundException, NotElementInDiscourseException, IOException, NullDiscourseException {
 		Fusion f = new Fusion();
-		Constants c = new Constants("Constants.properties");
+		Parameters c = new Parameters("Constants.properties");
 		f.createProblem("Constants.properties");
 		Discourse d = f.getInitialDiscourse(SensorType.CAMERA, 1);
 		Assertions.assertNotNull(d);

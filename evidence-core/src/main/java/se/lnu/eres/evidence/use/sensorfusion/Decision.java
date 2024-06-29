@@ -70,28 +70,28 @@ public class Decision {
 		return plausibilities;
 	}
 
-	public Interval<Double, Double> createIntervalBelief(List<Discourse> ds, Set<String> subset) {
+	public Pair<Double, Double> createIntervalBelief(List<Discourse> ds, Set<String> subset) {
 
 		List<Double> beliefs = getBeliefsOfSubset(ds, subset);
-		return new Interval<Double, Double>(Collections.min(beliefs), Collections.max(beliefs));
+		return new Pair<Double, Double>(Collections.min(beliefs), Collections.max(beliefs));
 
 	}
 
-	public Interval<Double, Double> createIntervalBelief(List<Discourse> ds, String subset) {
+	public Pair<Double, Double> createIntervalBelief(List<Discourse> ds, String subset) {
 
 		return createIntervalBelief(ds, MathEvidence.elementToSet(subset));
 
 	}
 
-	private Interval<Double, Double> createIntervalPlausibility(List<Discourse> ds, Set<String> subset) {
+	private Pair<Double, Double> createIntervalPlausibility(List<Discourse> ds, Set<String> subset) {
 
 		List<Double> plausibilities = getPlausibilityOfSubset(ds, subset);
-		return new Interval<Double, Double>(Collections.min(plausibilities), Collections.max(plausibilities));
+		return new Pair<Double, Double>(Collections.min(plausibilities), Collections.max(plausibilities));
 
 	}
 
-	public List<Interval<Double, Double>> createIntervalPlausibility(List<Discourse> ds, List<Set<String>> subsets) {
-		List<Interval<Double, Double>> intervals = new ArrayList<Interval<Double, Double>>();
+	public List<Pair<Double, Double>> createIntervalPlausibility(List<Discourse> ds, List<Set<String>> subsets) {
+		List<Pair<Double, Double>> intervals = new ArrayList<Pair<Double, Double>>();
 		for (Set<String> subset : subsets) {
 			intervals.add(createIntervalPlausibility(ds, subset));
 		}
@@ -99,7 +99,7 @@ public class Decision {
 		return intervals;
 	}
 
-	public List<Interval<Double, Double>> createIntervalPlausibility(List<Discourse> ds, String[] subsets) {
+	public List<Pair<Double, Double>> createIntervalPlausibility(List<Discourse> ds, String[] subsets) {
 		List<Set<String>> ssubsets = new ArrayList<Set<String>>();
 		for (String s : subsets) {
 			ssubsets.add(MathEvidence.elementToSet(s));

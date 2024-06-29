@@ -16,17 +16,32 @@ public class Fusion {
 	private Discourse[][] ds = new Discourse[3][];
 
 	private Set<String> allElements = new HashSet<String>(Arrays.asList("p", "b", "c", "t"));
+
 	public Set<String> getAllElements() {
 		return allElements;
 	}
 
-	private Constants c;
+	private Parameters c;
+
+	public Parameters getParameters() {
+		return c;
+	}
+
+	public Discourse[][][] createProblem(Parameters c)
+			throws NotElementInDiscourseException, FileNotFoundException, IOException, NullDiscourseException {
+		this.c = c;
+		return createProblemWithLocalParameters();
+	}
 
 	public Discourse[][][] createProblem(String propertiesFilename)
 			throws NotElementInDiscourseException, FileNotFoundException, IOException, NullDiscourseException {
+		c = new Parameters(propertiesFilename);
+		return createProblemWithLocalParameters();
 
-		c = new Constants(propertiesFilename);
+	}
 
+	private Discourse[][][] createProblemWithLocalParameters()
+			throws NullDiscourseException, NotElementInDiscourseException {
 		// Create the 10 discourses; 4 lidar, 4 camera, 2 radar
 
 		ds[0] = createLidarDiscourses();
@@ -46,9 +61,8 @@ public class Fusion {
 			}
 
 		}
-		
+
 		return resultFusionDiscourses;
-		
 
 	}
 

@@ -1,10 +1,10 @@
 package se.lnu.eres.evidence.use.sensorfusion;
 
-public class Interval<T,U> {
+public class Pair<T,U> {
 
 	T first;
 	T second;
-	public Interval(T first, T second) {
+	public Pair(T first, T second) {
 		super();
 		this.first = first;
 		this.second = second;
