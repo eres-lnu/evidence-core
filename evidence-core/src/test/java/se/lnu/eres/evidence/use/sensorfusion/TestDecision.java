@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import se.lnu.eres.evidence.core.Discourse;
+import se.lnu.eres.evidence.datatypes.Pair;
 import se.lnu.eres.evidence.exceptions.NotElementInDiscourseException;
 import se.lnu.eres.evidence.exceptions.NullDiscourseException;
 

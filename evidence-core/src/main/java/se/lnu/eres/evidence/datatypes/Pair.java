@@ -1,4 +1,4 @@
-package se.lnu.eres.evidence.use.sensorfusion;
+package se.lnu.eres.evidence.datatypes;
 
 public class Pair<T,U> {
 

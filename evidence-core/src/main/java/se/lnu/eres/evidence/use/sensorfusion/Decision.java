@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import se.lnu.eres.evidence.core.Discourse;
+import se.lnu.eres.evidence.datatypes.Pair;
 import se.lnu.eres.evidence.util.MathEvidence;
 
 public class Decision {
