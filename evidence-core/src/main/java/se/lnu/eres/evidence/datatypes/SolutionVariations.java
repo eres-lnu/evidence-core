@@ -14,7 +14,20 @@ public class SolutionVariations {
 	
 	AbstractDimension solution;
 	
+	public SolutionVariations(String[] parameterNames, double[][] values) {
+		if(parameterNames.length==1) {
+			//Single parameter, create the Dimension Value directly
+			solution= new DimensionValue(parameterNames[0], values[0]);
+		}
+		else {solution= new Dimension(0,parameterNames, values);}
+		
+	}
 	
+	public void addSolution(List<Pair<Double,Double>> sol, String[] correspondentNames, double[] correspondentParameters) {
 	
+			solution.addSolution(sol, correspondentNames, correspondentParameters);
+		
+	}
+
 
 }

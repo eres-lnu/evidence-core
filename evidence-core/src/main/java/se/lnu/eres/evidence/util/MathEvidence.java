@@ -14,5 +14,9 @@ public class MathEvidence {
 		s.add(element);
 		return s;
 	}
+
+	public static boolean equalDouble(double v1, double v2) {
+		return Round(5,v1)==Round(5,v2);
+	}
 	
 }
