@@ -25,5 +25,11 @@ public class DimensionValue extends AbstractDimension {
 		intervals.set(positionInDimensionValues, sol);
 		
 	}
+
+	@Override
+	protected List<Pair<Double, Double>> getSolutionConcrete(String[] correspondentNames,
+			double[] correspondentParameters, int positionInDimensionValues) {
+		return intervals.get(positionInDimensionValues);
+	}
 	
 }

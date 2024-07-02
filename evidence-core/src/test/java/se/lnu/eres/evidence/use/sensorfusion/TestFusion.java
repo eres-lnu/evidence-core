@@ -31,7 +31,7 @@ class TestFusion {
 		f.createProblem("Constants.properties");
 		Discourse d = f.getInitialDiscourse(SensorType.CAMERA, 1);
 		Assertions.assertNotNull(d);
-		Assertions.assertEquals(MathEvidence.Round(5, c.alphab * c.cc), MathEvidence.Round(5, d.getMassValue("b")));
+		Assertions.assertEquals(MathEvidence.Round(5, c.getAlphab() * c.getCc()), MathEvidence.Round(5, d.getMassValue("b")));
 	}
 
 }

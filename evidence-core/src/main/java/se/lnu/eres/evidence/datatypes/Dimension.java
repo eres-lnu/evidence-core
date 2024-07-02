@@ -3,11 +3,17 @@ package se.lnu.eres.evidence.datatypes;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import se.lnu.eres.evidence.exceptions.NotDimensionNameFound;
 import se.lnu.eres.evidence.exceptions.NotValueOfDimensionFound;
+import se.lnu.eres.evidence.util.MathEvidence;
 
 public class Dimension extends AbstractDimension {
 
+	 protected static final Logger Logger = LogManager.getLogger(Dimension.class.getSimpleName());
+	
 	List<AbstractDimension> nextDimension;
 	// The list will have as many items as different values will be considered for
 	// the current dimension
@@ -36,7 +42,15 @@ public class Dimension extends AbstractDimension {
 	@Override
 	protected void addSolutionConcrete(List<Pair<Double, Double>> sol, String[] correspondentNames,
 			double[] correspondentParameters, int positionInDimensionValues) throws NotDimensionNameFound, NotValueOfDimensionFound {
+		
 		nextDimension.get(positionInDimensionValues).addSolution(sol, correspondentNames, correspondentParameters);
 		
+	}
+
+	@Override
+	protected List<Pair<Double, Double>> getSolutionConcrete(String[] correspondentNames,
+			double[] correspondentParameters, int positionInDimensionValues) throws NotValueOfDimensionFound, NotDimensionNameFound {
+		
+		return nextDimension.get(positionInDimensionValues).getSolution(correspondentNames, correspondentParameters);
 	}
 }

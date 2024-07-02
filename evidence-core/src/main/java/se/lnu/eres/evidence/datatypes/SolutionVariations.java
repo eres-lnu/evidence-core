@@ -2,6 +2,9 @@ package se.lnu.eres.evidence.datatypes;
 
 import java.util.List;
 
+import se.lnu.eres.evidence.exceptions.NotDimensionNameFound;
+import se.lnu.eres.evidence.exceptions.NotValueOfDimensionFound;
+
 public class SolutionVariations {
 
 	// Based on: List<List<List<Pair<Double, Double>>>>
@@ -23,10 +26,14 @@ public class SolutionVariations {
 		
 	}
 	
-	public void addSolution(List<Pair<Double,Double>> sol, String[] correspondentNames, double[] correspondentParameters) {
+	public void addSolution(List<Pair<Double,Double>> sol, String[] correspondentNames, double[] correspondentParameters) throws NotDimensionNameFound, NotValueOfDimensionFound {
 	
 			solution.addSolution(sol, correspondentNames, correspondentParameters);
 		
+	}
+
+	public List<Pair<Double,Double>> getSolution(String[] correspondentNames, double[] correspondentParameters) throws NotValueOfDimensionFound, NotDimensionNameFound {
+		return solution.getSolution(correspondentNames, correspondentParameters);
 	}
 
 

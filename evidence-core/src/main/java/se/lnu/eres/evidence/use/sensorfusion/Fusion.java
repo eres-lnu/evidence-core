@@ -87,13 +87,13 @@ public class Fusion {
 		Discourse[] dr = new Discourse[2];
 
 		Discourse d = Discourse.createDiscourse(allElements, "radar-pb");
-		d.addMass(new HashSet<String>(Arrays.asList("p", "b")), c.alpha);
-		d.addMass(allElements, 1.0 - c.alpha);
+		d.addMass(new HashSet<String>(Arrays.asList("p", "b")), c.getAlpha());
+		d.addMass(allElements, 1.0 - c.getAlpha());
 		dr[0] = d;
 
 		d = Discourse.createDiscourse(allElements, "radar-ct");
-		d.addMass(new HashSet<String>(Arrays.asList("c", "t")), c.beta);
-		d.addMass(allElements, 1.0 - c.beta);
+		d.addMass(new HashSet<String>(Arrays.asList("c", "t")), c.getBeta());
+		d.addMass(allElements, 1.0 - c.getBeta());
 		dr[1] = d;
 
 		return dr;
@@ -104,27 +104,27 @@ public class Fusion {
 		Discourse[] dc = new Discourse[4];
 
 		Discourse d = Discourse.createDiscourse(allElements, "camera-p");
-		d.addMass("p", c.alphap * c.cc);
-		d.addMass(new HashSet<String>(Arrays.asList("p", "b")), c.alphap * (1.0 - c.cc));
-		d.addMass(allElements, 1.0 - c.alphap);
+		d.addMass("p", c.getAlphap() * c.getCc());
+		d.addMass(new HashSet<String>(Arrays.asList("p", "b")), c.getAlphap() * (1.0 - c.getCc()));
+		d.addMass(allElements, 1.0 - c.getAlphap());
 		dc[0] = d;
 
 		d = Discourse.createDiscourse(allElements, "camera-b");
-		d.addMass("b", c.alphab * c.cc);
-		d.addMass(new HashSet<String>(Arrays.asList("p", "b")), c.alphab * (1.0 - c.cc));
-		d.addMass(allElements, 1.0 - c.alphab);
+		d.addMass("b", c.getAlphab() * c.getCc());
+		d.addMass(new HashSet<String>(Arrays.asList("p", "b")), c.getAlphab() * (1.0 - c.getCc()));
+		d.addMass(allElements, 1.0 - c.getAlphab());
 		dc[1] = d;
 
 		d = Discourse.createDiscourse(allElements, "camera-c");
-		d.addMass("c", c.alphac * c.cc);
-		d.addMass(new HashSet<String>(Arrays.asList("c", "t")), c.alphac * (1.0 - c.cc));
-		d.addMass(allElements, 1.0 - c.alphac);
+		d.addMass("c", c.getAlphac() * c.getCc());
+		d.addMass(new HashSet<String>(Arrays.asList("c", "t")), c.getAlphac() * (1.0 - c.getCc()));
+		d.addMass(allElements, 1.0 - c.getAlphac());
 		dc[2] = d;
 
 		d = Discourse.createDiscourse(allElements, "camera-t");
-		d.addMass("t", c.alphat * c.cc);
-		d.addMass(new HashSet<String>(Arrays.asList("c", "t")), c.alphat * (1.0 - c.cc));
-		d.addMass(allElements, 1.0 - c.alphat);
+		d.addMass("t", c.getAlphat() * c.getCc());
+		d.addMass(new HashSet<String>(Arrays.asList("c", "t")), c.getAlphat() * (1.0 - c.getCc()));
+		d.addMass(allElements, 1.0 - c.getAlphat());
 		dc[3] = d;
 
 		return dc;
@@ -135,25 +135,25 @@ public class Fusion {
 		Discourse[] dl = new Discourse[4];
 
 		Discourse d = Discourse.createDiscourse(allElements, "lidar-p");
-		d.addMass("p", c.alphap);
-		d.addMass(allElements, 1.0 - c.alphap);
+		d.addMass("p", c.getAlphap());
+		d.addMass(allElements, 1.0 - c.getAlphap());
 		dl[0] = d;
 
 		d = Discourse.createDiscourse(allElements, "lidar-b");
-		d.addMass("b", c.gammab * c.alphab);
-		d.addMass(new HashSet<String>(Arrays.asList("b", "c", "t")), c.gammab * (1.0 - c.alphab));
-		d.addMass(allElements, 1.0 - c.gammab);
+		d.addMass("b", c.getGammab() * c.getAlphab());
+		d.addMass(new HashSet<String>(Arrays.asList("b", "c", "t")), c.getGammab() * (1.0 - c.getAlphab()));
+		d.addMass(allElements, 1.0 - c.getGammab());
 		dl[1] = d;
 
 		d = Discourse.createDiscourse(allElements, "lidar-c");
-		d.addMass("c", c.gammac * c.alphac);
-		d.addMass(new HashSet<String>(Arrays.asList("c", "t")), c.gammac * (1.0 - c.alphac));
-		d.addMass(allElements, 1.0 - c.gammac);
+		d.addMass("c", c.getGammac() * c.getAlphac());
+		d.addMass(new HashSet<String>(Arrays.asList("c", "t")), c.getGammac() * (1.0 - c.getAlphac()));
+		d.addMass(allElements, 1.0 - c.getGammac());
 		dl[2] = d;
 
 		d = Discourse.createDiscourse(allElements, "lidar-t");
-		d.addMass("t", c.alphat);
-		d.addMass(allElements, 1.0 - c.alphat);
+		d.addMass("t", c.getAlphat());
+		d.addMass(allElements, 1.0 - c.getAlphat());
 		dl[3] = d;
 
 		return dl;
