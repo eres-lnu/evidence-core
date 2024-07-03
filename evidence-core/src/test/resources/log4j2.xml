@@ -35,6 +35,9 @@
 		<Logger name="AbstractDimension" level="debug" additivity="false">
 			<AppenderRef ref="console_out" />
 		</Logger>
+		<Logger name="CombinationManagerDoubleTest" level="debug" additivity="false">
+			<AppenderRef ref="console_out" />
+		</Logger>
 
 		<Root level="info">
 			<AppenderRef ref="console_out" />
