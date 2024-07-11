@@ -2,13 +2,11 @@ package se.lnu.eres.evidence.use.sensorfusion;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import com.google.common.primitives.Doubles;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.core.util.ArrayUtils;
 
 import se.lnu.eres.evidence.core.Discourse;
 import se.lnu.eres.evidence.datatypes.Pair;
@@ -65,9 +63,11 @@ public class ParameterVariationDecisions {
 
 		CombinationManager<Double> c = new CombinationManagerDouble(values);
 		c.startCombinations();
+		Logger.trace("Entering the loop for the exists new combination");
 		while (c.existsNewCombination()) {
 			// Values combination are int he same order as variatingParameters
 			List<Double> valuesCombination = c.getNextCombination();
+			Logger.debug("solving the parameter combination of: {}", valuesCombination.toString());
 			updateAllValuesInParameters(p, variatingParameters, valuesCombination);
 			discourses = f.createProblem(p);
 

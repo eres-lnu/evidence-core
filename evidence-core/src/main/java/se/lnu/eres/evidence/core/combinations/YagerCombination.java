@@ -45,8 +45,7 @@ public class YagerCombination {
 		// in position pos and call recursively for each of its masses.
 		if (pos == ds.length) {
 			result.incrementOrAddAsNew(elementsIn, partialMassValue);
-			System.out.println("Adding to the result set elements=" + elementsIn.toString()
-					+ " , a value partialMAssValue=" + partialMassValue);
+			Logger.debug("Adding to the result set elements={} , a value partialMAssValue={}",elementsIn.toString(), partialMassValue);
 
 		} else {
 
