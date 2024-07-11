@@ -25,9 +25,10 @@ public class CombinationManager<T> {
 	}
 
 	public void startCombinations() {
-		for (int i = 0; i < positionEachComponent.length; i++) {
+		for (int i = 0; i < positionEachComponent.length-1; i++) {
 			positionEachComponent[i] = 0;
 		}
+		positionEachComponent[positionEachComponent.length-1]=-1;
 
 	}
 
@@ -35,16 +36,16 @@ public class CombinationManager<T> {
 		for (int i = 0; i < positionEachComponent.length; i++) {
 
 			if (positionEachComponent[i] < (getElementsIthLength(i) - 1)) {
-				return false;
+				return true;
 			}
 
 		}
-		return true;
+		return false;
 	}
 
 	public List<T> getNextCombination() {
-		List<T> combination = getCurrentCombination();
 		incrementCombination();
+		List<T> combination = getCurrentCombination();
 		return combination;
 	}
 
