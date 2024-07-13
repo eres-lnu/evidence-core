@@ -83,7 +83,7 @@ public abstract class AbstractDimension {
 	
 	
 	
-	public String toString(StringBuilder sb, int level) {
+	protected void buildString(StringBuilder sb, int level) {
 		appendLine(sb, level, "[dimensionName="+dimensionName + "]   called to string with level " + level);
 		for(int i=0; i<dimensionValues.length; i++) {
 			appendLine(sb, level, "Iteration number" + i);
@@ -91,13 +91,13 @@ public abstract class AbstractDimension {
 			dimensionContent(sb, level+1, i);
 		}
 		
-		return sb.toString();
 	}
 
 	public String toString(int level) {
 		StringBuilder sb = new StringBuilder();
+		buildString(sb,level);
 		
-		return this.toString(sb, level);
+		return sb.toString();
 	}
 
 	protected abstract void dimensionContent(StringBuilder sb, int level, int index);

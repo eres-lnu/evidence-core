@@ -43,7 +43,6 @@ class TestSolutionVariations {
 		Assertions.assertEquals(new Pair<Double,Double>(1.0,1.0), sols.getSolution(new String[] {"x","y", "z"}, new double[] {3.0, 7.0, 10.0}).getFirst());
 		Assertions.assertEquals(new Pair<Double,Double>(2.0,2.0), sols.getSolution(new String[] {"z","x","y"}, new double[] {11.0, 1.0, 5.0}).getFirst());
 		
-		
 	}
 
 }

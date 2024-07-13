@@ -59,20 +59,9 @@ public class Dimension extends AbstractDimension {
 
 	@Override
 	protected void dimensionContent(StringBuilder sb, int level, int index) {
-		nextDimension.get(index).toString(sb,level);
+		nextDimension.get(index).buildString(sb,level);
 	}
-	
-	
-	public String toString(StringBuilder sb, int level) {
-		appendLine(sb, level, "[dimensionName="+dimensionName + "]   called to string with level " + level);
-		for(int i=0; i<dimensionValues.length; i++) {
-			appendLine(sb, level, "Iteration number" + i);
-			appendLine(sb, level, dimensionName+"="+dimensionValues[i]);
-			dimensionContent(sb, level+1, i);
-		}
-		
-		return sb.toString();
-	}
+
 
 	
 }
