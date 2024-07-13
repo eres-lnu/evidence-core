@@ -36,5 +36,12 @@ public class SolutionVariations {
 		return solution.getSolution(correspondentNames, correspondentParameters);
 	}
 
+	@Override
+	public String toString() {
+		return "SolutionVariations [" + System.getProperty("line.separator") + solution.toString(0) + "]";
+	}
+	
+	
+
 
 }

@@ -32,7 +32,7 @@
 		<Logger name="MathEvidence" level="info" additivity="false">
 			<AppenderRef ref="console_out" />
 		</Logger>
-		<Logger name="AbstractDimension" level="trace" additivity="false">
+		<Logger name="AbstractDimension" level="info" additivity="false">
 			<AppenderRef ref="console_out" />
 		</Logger>
 		<Logger name="CombinationManagerDoubleTest" level="debug" additivity="false">

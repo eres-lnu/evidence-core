@@ -12,6 +12,8 @@ import se.lnu.eres.evidence.util.MathEvidence;
 
 public abstract class AbstractDimension {
 
+	protected static final String NL = System.getProperty("line.separator");
+	
 	protected static final Logger Logger = LogManager.getLogger(AbstractDimension.class.getSimpleName());
 
 	protected double[] dimensionValues;
@@ -21,6 +23,7 @@ public abstract class AbstractDimension {
 		super();
 		this.dimensionValues = dimensionValues;
 		this.dimensionName = dimensionName;
+		Logger.trace("Creating dimension with name {} and values {}", dimensionName, Arrays.toString(dimensionValues));
 	}
 
 	public void addSolution(List<Pair<Double, Double>> sol, String[] correspondentNames,
@@ -75,6 +78,40 @@ public abstract class AbstractDimension {
 		}
 		throw new NotDimensionNameFound(
 				"Looking for the dimension name " + n + " in the array of names [" + Arrays.toString(names) + "]");
+	}
+
+	
+	
+	
+	public String toString(StringBuilder sb, int level) {
+		appendLine(sb, level, "[dimensionName="+dimensionName + "]   called to string with level " + level);
+		for(int i=0; i<dimensionValues.length; i++) {
+			appendLine(sb, level, "Iteration number" + i);
+			appendLine(sb, level, dimensionName+"="+dimensionValues[i]);
+			dimensionContent(sb, level+1, i);
+		}
+		
+		return sb.toString();
+	}
+
+	public String toString(int level) {
+		StringBuilder sb = new StringBuilder();
+		
+		return this.toString(sb, level);
+	}
+
+	protected abstract void dimensionContent(StringBuilder sb, int level, int index);
+
+	protected void appendLine(StringBuilder sb, int level, String content) {
+		//Add white spaces trailing
+		for(int i=0; i<level; i++) {
+			sb.append("  ");
+		}
+		//Add content
+		sb.append(content);
+		//Add newline 
+		sb.append(NL);
+		
 	}
 
 	protected abstract void addSolutionConcrete(List<Pair<Double, Double>> sol, String[] correspondentNames,

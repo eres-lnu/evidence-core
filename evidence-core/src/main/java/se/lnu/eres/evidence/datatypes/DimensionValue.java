@@ -1,6 +1,7 @@
 package se.lnu.eres.evidence.datatypes;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DimensionValue extends AbstractDimension {
@@ -14,9 +15,11 @@ public class DimensionValue extends AbstractDimension {
 	public DimensionValue(String dimensionName, double[] varyingValues) {
 		super(varyingValues, dimensionName);
 		intervals = new ArrayList<List<Pair<Double, Double>>>();
-		for(double v : varyingValues) {
-			intervals.add(new ArrayList<Pair<Double, Double>>());
-		}
+		
+		Arrays.stream(varyingValues).forEach(e -> intervals.add(new ArrayList<Pair<Double, Double>>()));
+//		for(double v : varyingValues) {
+//			intervals.add(new ArrayList<Pair<Double, Double>>());
+//		}
 	}
 
 	@Override
@@ -30,6 +33,16 @@ public class DimensionValue extends AbstractDimension {
 	protected List<Pair<Double, Double>> getSolutionConcrete(String[] correspondentNames,
 			double[] correspondentParameters, int positionInDimensionValues) {
 		return intervals.get(positionInDimensionValues);
+	}
+
+	@Override
+	protected void dimensionContent(StringBuilder sb, int level, int index) {
+		sb.append("       entering concrete dimension value with name " + dimensionName + " at index " + index + NL);
+		List<Pair<Double, Double>> indexContent = intervals.get(index);
+		for(Pair<Double, Double> p : indexContent) {
+		appendLine(sb, level, p.toString());
+		}
+		
 	}
 	
 }

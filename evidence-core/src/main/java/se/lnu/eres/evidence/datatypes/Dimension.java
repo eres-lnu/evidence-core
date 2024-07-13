@@ -1,6 +1,7 @@
 package se.lnu.eres.evidence.datatypes;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -8,7 +9,6 @@ import org.apache.logging.log4j.Logger;
 
 import se.lnu.eres.evidence.exceptions.NotDimensionNameFound;
 import se.lnu.eres.evidence.exceptions.NotValueOfDimensionFound;
-import se.lnu.eres.evidence.util.MathEvidence;
 
 public class Dimension extends AbstractDimension {
 
@@ -27,13 +27,16 @@ public class Dimension extends AbstractDimension {
 		if (pos == parameterNames.length - 2) {
 			// We are in the last iteration. Single parameter, create the Dimension Value
 			// directly
-			for (double dummy : allValues[pos]) {
-				nextDimension.add(new DimensionValue(parameterNames[pos], allValues[pos]));
-			}
+			
+			Arrays.stream(allValues[pos]).forEach(e -> nextDimension.add(new DimensionValue(parameterNames[pos+1], allValues[pos+1])));
+//			for (double dummy : allValues[pos]) {
+//				nextDimension.add(new DimensionValue(parameterNames[pos+1], allValues[pos+1]));
+//			}
 		} else {
-			for (double dummy : allValues[pos]) {
-				nextDimension.add(new Dimension(pos + 1, parameterNames, allValues));
-			}
+			Arrays.stream(allValues[pos]).forEach(e -> nextDimension.add(new Dimension(pos + 1, parameterNames, allValues)));
+//			for (double dummy : allValues[pos]) {
+//				nextDimension.add(new Dimension(pos + 1, parameterNames, allValues));
+//			}
 
 		}
 
@@ -53,4 +56,23 @@ public class Dimension extends AbstractDimension {
 		
 		return nextDimension.get(positionInDimensionValues).getSolution(correspondentNames, correspondentParameters);
 	}
+
+	@Override
+	protected void dimensionContent(StringBuilder sb, int level, int index) {
+		nextDimension.get(index).toString(sb,level);
+	}
+	
+	
+	public String toString(StringBuilder sb, int level) {
+		appendLine(sb, level, "[dimensionName="+dimensionName + "]   called to string with level " + level);
+		for(int i=0; i<dimensionValues.length; i++) {
+			appendLine(sb, level, "Iteration number" + i);
+			appendLine(sb, level, dimensionName+"="+dimensionValues[i]);
+			dimensionContent(sb, level+1, i);
+		}
+		
+		return sb.toString();
+	}
+
+	
 }
