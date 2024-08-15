@@ -43,7 +43,7 @@ class ParameterVariationDecisionsTest {
 		List<Double> valuesAlpha = new ArrayList<Double>();
 		List<Double> valuescc = new ArrayList<Double>();
 
-		for (double v = 0.5; v <= 0.6; v = v + INCREMENT) {
+		for (double v = 0.5; v <= 0.9; v = v + INCREMENT) { /**TODO: change upper limit to 0.9**/
 			valuesAlpha.add(MathEvidence.Round(5, v));
 			valuescc.add(MathEvidence.Round(5, v));
 		}

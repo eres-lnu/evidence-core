@@ -69,6 +69,7 @@ public class ParameterVariationDecisions {
 			List<Double> valuesCombination = c.getNextCombination();
 			Logger.debug("solving the parameter combination of: {}", valuesCombination.toString());
 			updateAllValuesInParameters(p, variatingParameters, valuesCombination);
+			Logger.trace("Values of parameters after update is {}", p.toString());
 			discourses = f.createProblem(p);
 
 			solution.addSolution(filterPedestrianResults(decision, discourses, f), variatingParameters,
@@ -99,6 +100,7 @@ public class ParameterVariationDecisions {
 		for (int i = 0; i < variatingParameters.length; i++) {
 			p.updatePropertyValue(variatingParameters[i], valuesCombination.get(i).toString());
 		}
+		p.reloadValuesFromProperties();
 
 	}
 

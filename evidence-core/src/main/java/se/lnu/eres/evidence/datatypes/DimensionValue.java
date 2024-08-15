@@ -4,8 +4,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class DimensionValue extends AbstractDimension {
 
+	protected static final Logger Logger = LogManager.getLogger(DimensionValue.class.getSimpleName());
+	
 	List<List<Pair<Double, Double>>> intervals;
 
 	/*
@@ -26,6 +31,7 @@ public class DimensionValue extends AbstractDimension {
 	protected void addSolutionConcrete(List<Pair<Double, Double>> sol, String[] correspondentNames,
 			double[] correspondentParameters, int positionInDimensionValues) {
 		intervals.set(positionInDimensionValues, sol);
+		Logger.debug("Added solution {} {} in position {}", sol.toString(), NL, positionInDimensionValues);
 		
 	}
 

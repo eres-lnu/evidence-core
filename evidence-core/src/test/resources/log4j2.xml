@@ -7,12 +7,12 @@
 			- %msg%n" /> -->
 			<PatternLayout pattern="%d{mm:ss} %-5level %logger{36} - %msg%n" />
 			<ThresholdFilter level="warn" onMatch="DENY" onMismatch="ACCEPT" />
-			
+
 		</Console>
 		<Console name="console_err" target="SYSTEM_ERR">
-		<Filters>
-			<ThresholdFilter level="warn"/>
-		</Filters>
+			<Filters>
+				<ThresholdFilter level="warn" />
+			</Filters>
 			<!--  <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t]
 			%-5level %logger{36}
 			- %msg%n" /> -->
@@ -25,26 +25,38 @@
 			<AppenderRef ref="console_out" />
 			<AppenderRef ref="console_err" />
 		</Logger>
-		<Logger name="TestYagerCombination" level="debug" additivity="false">
+		<Logger
+			name="TestYagerCombination" level="debug" additivity="false">
 			<AppenderRef ref="console_out" />
 			<AppenderRef ref="console_err" />
 		</Logger>
-		<Logger name="MathEvidence" level="info" additivity="false">
+		<Logger
+			name="MathEvidence" level="info" additivity="false">
 			<AppenderRef ref="console_out" />
 		</Logger>
-		<Logger name="AbstractDimension" level="info" additivity="false">
+		<Logger
+			name="AbstractDimension" level="info" additivity="false">
 			<AppenderRef ref="console_out" />
 		</Logger>
-		<Logger name="CombinationManagerDoubleTest" level="debug" additivity="false">
+				<Logger
+			name="DimensionValue" level="debug" additivity="false">
 			<AppenderRef ref="console_out" />
 		</Logger>
-				<Logger name="ParameterVariationDecisions" level="trace" additivity="false">
+		<Logger
+			name="CombinationManagerDoubleTest" level="debug" additivity="false">
+			<AppenderRef ref="console_out" />
+		</Logger>
+				<Logger
+			name="ParameterVariationDecisions" level="trace" additivity="false">
+			<AppenderRef ref="console_out" />
+		</Logger>
+						<Logger
+			name="Parameters" level="trace" additivity="false">
 			<AppenderRef ref="console_out" />
 		</Logger>
 
 		<Root level="info">
 			<AppenderRef ref="console_out" />
 			<AppenderRef ref="console_err" />
-		</Root>t>
-	</Loggers>
+		</Root>t> </Loggers>
 </Configuration>
