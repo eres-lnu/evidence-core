@@ -39,6 +39,7 @@ public class CombinationManagerDouble extends CombinationManager<Double> {
 	public CombinationManagerDouble(double[][] elements) {
 		super(elements.length);
 		this.elements=elements;
+		startCombinations();
 	}
 
 	

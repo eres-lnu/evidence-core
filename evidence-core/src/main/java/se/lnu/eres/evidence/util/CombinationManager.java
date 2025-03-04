@@ -31,7 +31,7 @@ import org.apache.logging.log4j.Logger;
 public class CombinationManager<T> {
 
 	private static final Logger Logger = LogManager.getLogger(CombinationManager.class.getSimpleName());
-	
+
 	protected int[] positionEachComponent;
 	protected T[][] elements;
 
@@ -39,6 +39,7 @@ public class CombinationManager<T> {
 		super();
 		this.elements = elements;
 		positionEachComponent = new int[elements.length];
+		startCombinations();
 
 	}
 
@@ -46,11 +47,14 @@ public class CombinationManager<T> {
 		positionEachComponent = new int[sizeCombination];
 	}
 
+	/*
+	 * Starts at an invalid combination - last value is -1
+	 */
 	public void startCombinations() {
-		for (int i = 0; i < positionEachComponent.length-1; i++) {
+		for (int i = 0; i < positionEachComponent.length - 1; i++) {
 			positionEachComponent[i] = 0;
 		}
-		positionEachComponent[positionEachComponent.length-1]=-1;
+		positionEachComponent[positionEachComponent.length - 1] = -1;
 
 	}
 
@@ -65,6 +69,10 @@ public class CombinationManager<T> {
 		return false;
 	}
 
+	/*
+	 * First increments, then returns, because it started at an invalid combination
+	 * (last value was -1)
+	 */
 	public List<T> getNextCombination() {
 		incrementCombination();
 		List<T> combination = getCurrentCombination();
@@ -97,7 +105,6 @@ public class CombinationManager<T> {
 		}
 		return combination;
 	}
-
 
 	protected T elementInIthPosition(int i) {
 		Logger.warn("This should fail for the our double[][]... Override!!! ");
