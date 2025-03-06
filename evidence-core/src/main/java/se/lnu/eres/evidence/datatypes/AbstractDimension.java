@@ -32,7 +32,7 @@ import se.lnu.eres.evidence.exceptions.NotDimensionNameFound;
 import se.lnu.eres.evidence.exceptions.NotValueOfDimensionFound;
 import se.lnu.eres.evidence.util.MathEvidence;
 
-public abstract class AbstractDimension {
+public abstract class AbstractDimension<T> {
 
 	protected static final String NL = System.getProperty("line.separator");
 	
@@ -48,7 +48,7 @@ public abstract class AbstractDimension {
 		Logger.trace("Creating dimension with name {} and values {}", dimensionName, Arrays.toString(dimensionValues));
 	}
 
-	public void addSolution(List<Pair<Double, Double>> sol, String[] correspondentNames,
+	public void addSolution(List<Pair<T, T>> sol, String[] correspondentNames,
 			double[] correspondentParameters) throws NotDimensionNameFound, NotValueOfDimensionFound {
 
 		int positionInDimensionValues = calculateIndexInList(dimensionName, correspondentNames, correspondentParameters);
@@ -58,7 +58,7 @@ public abstract class AbstractDimension {
 
 	}
 
-	public List<Pair<Double, Double>> getSolution(String[] correspondentNames, double[] correspondentParameters)
+	public List<Pair<T, T>> getSolution(String[] correspondentNames, double[] correspondentParameters)
 			throws NotValueOfDimensionFound, NotDimensionNameFound {
 		int positionInDimensionValues = calculateIndexInList(dimensionName, correspondentNames, correspondentParameters);
 		Logger.trace(
@@ -136,11 +136,11 @@ public abstract class AbstractDimension {
 		
 	}
 
-	protected abstract void addSolutionConcrete(List<Pair<Double, Double>> sol, String[] correspondentNames,
+	protected abstract void addSolutionConcrete(List<Pair<T, T>> sol, String[] correspondentNames,
 			double[] correspondentParameters, int positionInDimensionValues)
 			throws NotDimensionNameFound, NotValueOfDimensionFound;
 
-	protected abstract List<Pair<Double, Double>> getSolutionConcrete(String[] correspondentNames,
+	protected abstract List<Pair<T, T>> getSolutionConcrete(String[] correspondentNames,
 			double[] correspondentParameters, int positionInDimensionValues)
 			throws NotValueOfDimensionFound, NotDimensionNameFound;
 
