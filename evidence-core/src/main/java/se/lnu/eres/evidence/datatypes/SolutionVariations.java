@@ -27,7 +27,7 @@ import java.util.List;
 import se.lnu.eres.evidence.exceptions.NotDimensionNameFound;
 import se.lnu.eres.evidence.exceptions.NotValueOfDimensionFound;
 
-public class SolutionVariations {
+public class SolutionVariations<T> {
 
 	// Based on: List<List<List<Pair<Double, Double>>>>
 
@@ -37,24 +37,24 @@ public class SolutionVariations {
 	 * parameter change, in a list for all the parameters changed
 	 */
 	
-	AbstractDimension solution;
+	AbstractDimension<T> solution;
 	
 	public SolutionVariations(String[] parameterNames, double[][] values) {
 		if(parameterNames.length==1) {
 			//Single parameter, create the Dimension Value directly
-			solution= new DimensionValue(parameterNames[0], values[0]);
+			solution= new DimensionValue<T>(parameterNames[0], values[0]);
 		}
-		else {solution= new Dimension(0,parameterNames, values);}
+		else {solution= new Dimension<T>(0,parameterNames, values);}
 		
 	}
 	
-	public void addSolution(List<Pair<Double,Double>> sol, String[] correspondentNames, double[] correspondentParameters) throws NotDimensionNameFound, NotValueOfDimensionFound {
+	public void addSolution(List<Pair<T, T>> sol, String[] correspondentNames, double[] correspondentParameters) throws NotDimensionNameFound, NotValueOfDimensionFound {
 	
 			solution.addSolution(sol, correspondentNames, correspondentParameters);
 		
 	}
 
-	public List<Pair<Double,Double>> getSolution(String[] correspondentNames, double[] correspondentParameters) throws NotValueOfDimensionFound, NotDimensionNameFound {
+	public List<Pair<T, T>> getSolution(String[] correspondentNames, double[] correspondentParameters) throws NotValueOfDimensionFound, NotDimensionNameFound {
 		return solution.getSolution(correspondentNames, correspondentParameters);
 	}
 
