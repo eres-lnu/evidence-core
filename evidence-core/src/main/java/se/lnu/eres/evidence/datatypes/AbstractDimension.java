@@ -56,7 +56,7 @@ public abstract class AbstractDimension<T> {
 		Logger.trace("Creating dimension with name {} and values {}", dimensionName, Arrays.toString(dimensionValues));
 	}
 
-	public void addSolution(List<Pair<T, T>> sol, String[] correspondentNames,
+	public void addSolution(List<T> sol, String[] correspondentNames,
 			double[] correspondentParameters) throws NotDimensionNameFound, NotValueOfDimensionFound {
 
 		int positionInDimensionValues = calculateIndexInList(dimensionName, correspondentNames, correspondentParameters);
@@ -66,7 +66,7 @@ public abstract class AbstractDimension<T> {
 
 	}
 
-	public List<Pair<T, T>> getSolution(String[] correspondentNames, double[] correspondentParameters)
+	public List<T> getSolution(String[] correspondentNames, double[] correspondentParameters)
 			throws NotValueOfDimensionFound, NotDimensionNameFound {
 		int positionInDimensionValues = calculateIndexInList(dimensionName, correspondentNames, correspondentParameters);
 		Logger.trace(
@@ -146,11 +146,11 @@ public abstract class AbstractDimension<T> {
 
 
 
-	protected abstract void addSolutionConcrete(List<Pair<T, T>> sol, String[] correspondentNames,
+	protected abstract void addSolutionConcrete(List<T> sol, String[] correspondentNames,
 			double[] correspondentParameters, int positionInDimensionValues)
 			throws NotDimensionNameFound, NotValueOfDimensionFound;
 
-	protected abstract List<Pair<T, T>> getSolutionConcrete(String[] correspondentNames,
+	protected abstract List<T> getSolutionConcrete(String[] correspondentNames,
 			double[] correspondentParameters, int positionInDimensionValues)
 			throws NotValueOfDimensionFound, NotDimensionNameFound;
 

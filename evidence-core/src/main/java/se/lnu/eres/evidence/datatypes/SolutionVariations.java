@@ -48,13 +48,13 @@ public class SolutionVariations<T> {
 		
 	}
 	
-	public void addSolution(List<Pair<T, T>> sol, String[] correspondentNames, double[] correspondentParameters) throws NotDimensionNameFound, NotValueOfDimensionFound {
+	public void addSolution(List<T> sol, String[] correspondentNames, double[] correspondentParameters) throws NotDimensionNameFound, NotValueOfDimensionFound {
 	
 			solution.addSolution(sol, correspondentNames, correspondentParameters);
 		
 	}
 
-	public List<Pair<T, T>> getSolution(String[] correspondentNames, double[] correspondentParameters) throws NotValueOfDimensionFound, NotDimensionNameFound {
+	public List<T> getSolution(String[] correspondentNames, double[] correspondentParameters) throws NotValueOfDimensionFound, NotDimensionNameFound {
 		return solution.getSolution(correspondentNames, correspondentParameters);
 	}
 

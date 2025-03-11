@@ -51,7 +51,7 @@ class TestSolutionVariations {
 												{5.0, 6.0, 7.0, 8.0},
 												{9.0, 10.0, 11.0, 12.0}};
 		
-		SolutionVariations<Double> sols =new SolutionVariations<Double>(names, values);
+		SolutionVariations<Pair<Double,Double>> sols =new SolutionVariations<Pair<Double,Double>>(names, values);
 		
 		List<Pair<Double,Double>> sol = new ArrayList<Pair<Double,Double>>();
 		sol.add(new Pair<Double,Double>(1.0,1.0));

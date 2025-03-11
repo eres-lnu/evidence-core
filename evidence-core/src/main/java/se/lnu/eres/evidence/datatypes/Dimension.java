@@ -65,7 +65,7 @@ public class Dimension<T> extends AbstractDimension<T> {
 	}
 
 	@Override
-	protected void addSolutionConcrete(List<Pair<T, T>> sol, String[] correspondentNames,
+	protected void addSolutionConcrete(List<T> sol, String[] correspondentNames,
 			double[] correspondentParameters, int positionInDimensionValues) throws NotDimensionNameFound, NotValueOfDimensionFound {
 		
 		nextDimension.get(positionInDimensionValues).addSolution(sol, correspondentNames, correspondentParameters);
@@ -73,7 +73,7 @@ public class Dimension<T> extends AbstractDimension<T> {
 	}
 
 	@Override
-	protected List<Pair<T, T>> getSolutionConcrete(String[] correspondentNames,
+	protected List<T> getSolutionConcrete(String[] correspondentNames,
 			double[] correspondentParameters, int positionInDimensionValues) throws NotValueOfDimensionFound, NotDimensionNameFound {
 		
 		return nextDimension.get(positionInDimensionValues).getSolution(correspondentNames, correspondentParameters);

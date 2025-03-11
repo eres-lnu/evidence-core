@@ -33,7 +33,7 @@ public class DimensionValue<T> extends AbstractDimension<T> {
 
 	protected static final Logger Logger = LogManager.getLogger(DimensionValue.class.getSimpleName());
 	
-	List<List<Pair<T, T>>> intervals;
+	List<List<T>> intervals;
 
 	/*
 	 * A list, each item handles an input value of the varying parameter. The item
@@ -41,16 +41,16 @@ public class DimensionValue<T> extends AbstractDimension<T> {
 	 */
 	public DimensionValue(String dimensionName, double[] varyingValues) {
 		super(varyingValues, dimensionName);
-		intervals = new ArrayList<List<Pair<T, T>>>();
+		intervals = new ArrayList<List<T>>();
 		
-		Arrays.stream(varyingValues).forEach(e -> intervals.add(new ArrayList<Pair<T, T>>()));
+		Arrays.stream(varyingValues).forEach(e -> intervals.add(new ArrayList<T>()));
 //		for(double v : varyingValues) {
 //			intervals.add(new ArrayList<Pair<Double, Double>>());
 //		}
 	}
 
 	@Override
-	protected void addSolutionConcrete(List<Pair<T, T>> sol, String[] correspondentNames,
+	protected void addSolutionConcrete(List<T> sol, String[] correspondentNames,
 			double[] correspondentParameters, int positionInDimensionValues) {
 		intervals.set(positionInDimensionValues, sol);
 		Logger.debug("Added solution {} {} in position {}", sol.toString(), NL, positionInDimensionValues);
@@ -58,7 +58,7 @@ public class DimensionValue<T> extends AbstractDimension<T> {
 	}
 
 	@Override
-	protected List<Pair<T, T>> getSolutionConcrete(String[] correspondentNames,
+	protected List<T> getSolutionConcrete(String[] correspondentNames,
 			double[] correspondentParameters, int positionInDimensionValues) {
 		return intervals.get(positionInDimensionValues);
 	}
@@ -66,8 +66,8 @@ public class DimensionValue<T> extends AbstractDimension<T> {
 	@Override
 	protected void dimensionContent(StringBuilder sb, int level, int index) {
 		sb.append("       entering concrete dimension value with name " + getDimensionName() + " at index " + index + NL);
-		List<Pair<T, T>> indexContent = intervals.get(index);
-		for(Pair<T, T> p : indexContent) {
+		List<T> indexContent = intervals.get(index);
+		for(T p : indexContent) {
 		appendLine(sb, level, p.toString());
 		}
 		
