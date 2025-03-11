@@ -58,10 +58,22 @@ public class SolutionVariations<T> {
 		return solution.getSolution(correspondentNames, correspondentParameters);
 	}
 
+	public List<String> getNamesOfDimensions() {
+		return solution.getNamesOfDimensions();
+	}
+	
+	public List<double[]> getValuesOfDimensions() {
+		return solution.getValuesOfDimensions();
+	}
+	
+	
 	@Override
 	public String toString() {
 		return "SolutionVariations [" + System.getProperty("line.separator") + solution.toString(0) + "]";
 	}
+
+
+	
 	
 	
 

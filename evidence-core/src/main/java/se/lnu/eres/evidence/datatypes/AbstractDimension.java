@@ -38,8 +38,16 @@ public abstract class AbstractDimension<T> {
 	
 	protected static final Logger Logger = LogManager.getLogger(AbstractDimension.class.getSimpleName());
 
-	protected double[] dimensionValues;
-	protected String dimensionName;
+	private double[] dimensionValues;
+	private String dimensionName;
+
+	protected String getDimensionName() {
+		return dimensionName;
+	}
+	
+	protected double[] getDimensionValues() {
+		return dimensionValues;
+	}
 
 	public AbstractDimension(double[] dimensionValues, String dimensionName) {
 		super();
@@ -136,6 +144,8 @@ public abstract class AbstractDimension<T> {
 		
 	}
 
+
+
 	protected abstract void addSolutionConcrete(List<Pair<T, T>> sol, String[] correspondentNames,
 			double[] correspondentParameters, int positionInDimensionValues)
 			throws NotDimensionNameFound, NotValueOfDimensionFound;
@@ -143,5 +153,10 @@ public abstract class AbstractDimension<T> {
 	protected abstract List<Pair<T, T>> getSolutionConcrete(String[] correspondentNames,
 			double[] correspondentParameters, int positionInDimensionValues)
 			throws NotValueOfDimensionFound, NotDimensionNameFound;
+
+	protected abstract List<String> getNamesOfDimensions();
+
+	protected abstract List<double[]> getValuesOfDimensions();
+
 
 }

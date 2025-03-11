@@ -84,6 +84,22 @@ public class Dimension<T> extends AbstractDimension<T> {
 		nextDimension.get(index).buildString(sb,level);
 	}
 
+	@Override
+	protected List<String> getNamesOfDimensions() {
+		List<String> name = new ArrayList<String>();
+		name.add(getDimensionName());
+		name.addAll(nextDimension.get(0).getNamesOfDimensions());
+		return name;
+	}
+
+	@Override
+	protected List<double[]> getValuesOfDimensions() {
+		List<double[]> values = new ArrayList<double[]>();
+		values.add(getDimensionValues());
+		values.addAll(nextDimension.get(0).getValuesOfDimensions());
+		return values;
+	}
+
 
 	
 }

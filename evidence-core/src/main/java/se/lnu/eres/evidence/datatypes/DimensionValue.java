@@ -65,12 +65,26 @@ public class DimensionValue<T> extends AbstractDimension<T> {
 
 	@Override
 	protected void dimensionContent(StringBuilder sb, int level, int index) {
-		sb.append("       entering concrete dimension value with name " + dimensionName + " at index " + index + NL);
+		sb.append("       entering concrete dimension value with name " + getDimensionName() + " at index " + index + NL);
 		List<Pair<T, T>> indexContent = intervals.get(index);
 		for(Pair<T, T> p : indexContent) {
 		appendLine(sb, level, p.toString());
 		}
 		
+	}
+
+	@Override
+	protected List<String> getNamesOfDimensions() {
+		List<String> name = new ArrayList<String>();
+		name.add(getDimensionName());
+		return name;
+	}
+
+	@Override
+	protected List<double[]> getValuesOfDimensions() {
+		List<double[]> value = new ArrayList<double[]>();
+		value.add(getDimensionValues());
+		return value;
 	}
 	
 }
